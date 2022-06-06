@@ -1,5 +1,9 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app') --}}
+@extends('layouts.front')
 
+@section('title')
+    Welcome To E-Shop
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
