@@ -3,21 +3,21 @@
 @section('title', $products->name)
 
 @section('content')
-<div class="py-3 mb-4 shadow-sm bg-warning border-top">
-    <div class="container">
-        <h6 class="mb-0">
-            <a href="{{url('category')}}">
-                Collections
-            </a> /
-            <a href="{{ url('view-category/'.$products->category->slug) }}">
-                {{ $products->category->name }}
-            </a> /
-            <a href="{{url('category/'.$products->category->slug.'/'.$products->slug)}}">
-                {{ $products->name }}
-            </a>
-        </h6>
+    <div class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="mb-0">
+                <a href="{{ url('category') }}">
+                    Collections
+                </a> /
+                <a href="{{ url('view-category/' . $products->category->slug) }}">
+                    {{ $products->category->name }}
+                </a> /
+                <a href="{{ url('category/' . $products->category->slug . '/' . $products->slug) }}">
+                    {{ $products->name }}
+                </a>
+            </h6>
+        </div>
     </div>
-</div>
     <div class="container">
         <div class="card shadow product_data">
             <div class="card-body">
@@ -52,7 +52,7 @@
                                     <div class="col-12">
                                         <div class="d-flex align-items-end">
                                             <div>
-                                                <input type="hidden" value="{{$products->id}}" class="prod_id">
+                                                <input type="hidden" value="{{ $products->id }}" class="prod_id">
                                                 <label for="Quantity">Quantity</label>
                                                 <div class="input-group text-center" style="width:130px">
                                                     <button class="input-group-text decrement-btn">-</button>
@@ -62,11 +62,13 @@
                                                 </div>
                                             </div>
                                             <div class="ms-3">
-                                                <div class="d-flex">
+                                                @if ($products->qty > 0)
                                                     <button style="width: max-content" type="button"
                                                         class="btn btn-primary me-3 addToCartBtn float-start">Add to Cart <i
                                                             class="fa fa-shopping-cart"></i> </button>
-                                                    <button style="width: max-content" type="button"
+                                                @endif
+                                                <div class="d-flex">
+                                                        <button style="width: max-content" type="button"
                                                         class="btn btn-success me-3 float-start">Add to Wishlist <i
                                                             class="fa fa-heart"></i> </button>
                                                 </div>
