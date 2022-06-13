@@ -10,8 +10,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-primary">
-                        <h4 class="text-white">New Orders
-                            <a href="{{ 'order-history' }}" class="btn btn-warning float-right">Order History</a>
+                        <h4 class="text-white">Order History
+                            <a href="{{ 'orders' }}" class="btn btn-warning float-right">New Order</a>
                         </h4>
                     </div>
                     <div class="card-body">
