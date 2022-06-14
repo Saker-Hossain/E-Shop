@@ -23,6 +23,8 @@ class Order extends Model
         'country',
         'pincode',
         'total_price',
+        'payment_mode',
+        'payment_id',
         'status',
         'message',
         'tracking_no',
