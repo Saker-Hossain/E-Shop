@@ -120,6 +120,7 @@
                             <input type="hidden" name="payment_mode" value="COD">
                             <button type="submit" class="btn btn-success w-100">Place Order | COD</button>
                             <button type="button" class="btn btn-primary w-100 mt-3 razorpay_btn">Pay with Razorpay</button>
+                            <div id="paypal-button-container"></div>
                         </div>
                     </div>
                 </div>
@@ -128,5 +129,6 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://www.paypal.com/sdk/js?client-id=ATSffgJVZIHU7zUws5YLE3EnuebfWHYv8W-LvYwvAxDRnawnK7TxFzRu8p-8cglTRSn3cLtjXWGHqG7B"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 @endsection
