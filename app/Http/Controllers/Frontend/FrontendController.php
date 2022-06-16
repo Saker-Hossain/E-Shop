@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -44,14 +46,44 @@ class FrontendController extends Controller
                 $rating_sum = Rating::where('prod_id', $products->id)->sum('stars_rated');
                 $rating_count = count($ratings) > 0 ? count($ratings) : 1;
                 $rating_value = ceil($rating_sum / $rating_count);
+                $user_rating = Rating::where('prod_id', $products->id)->where('user_id', Auth::id())->first();
+                $reviews = Review::where('prod_id', $products->id)->get();
 
 
-                return view('frontend.products.view', compact('products', 'ratings', 'rating_value'));
+                return view('frontend.products.view', compact('products', 'ratings', 'rating_value','user_rating','reviews'));
             } else {
                 return redirect('/')->with('status', "The link was broken!");
             }
         } else {
             return redirect('/')->with('status', "No such category found!");
         }
+    }
+
+    public function productlistAjax()
+    {
+        $products = Product::select('name')->where('status', '0')->get();
+        $data = [
+
+        ];
+        foreach ($products as $item) {
+            $data[] = $item['name'];
+        }
+        return $data;
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $searched_product = $request->product_name;
+        if ($searched_product) {
+            $product = Product::where("name","LIKE","%$searched_product%")->first();
+            if ($product) {
+                return redirect('category/'.$product->category->slug.'/'.$product->slug);
+            }else {
+                return redirect()->back()->with('status', "No product matched your search");
+            }
+        } else {
+            return redirect()->back();
+        }
+
     }
 }

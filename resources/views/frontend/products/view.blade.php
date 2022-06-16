@@ -16,6 +16,17 @@
                     <div class="modal-body">
                         <div class="rating-css">
                             <div class="star-icon">
+                            @if($user_rating)
+                                @for ($i =1; $i<= $user_rating->stars_rated; $i++)
+                                    <input type="radio" value="{{$i}}" name="product_rating" checked id="rating{{$i}}">
+                                    <label for="rating{{$i}}" class="fa fa-star "></label>
+                                @endfor
+                                @for($j = $user_rating->stars_rated+1; $j <= 5; $j++)
+                                    <input type="radio" value="{{$j}}" name="product_rating" id="rating{{$j}}">
+                                    <label for="rating{{$j}}" class="fa fa-star "></label>
+                                @endfor
+
+                            @else
                                 <input type="radio" value="1" name="product_rating" checked id="rating1">
                                 <label for="rating1" class="fa fa-star"></label>
                                 <input type="radio" value="2" name="product_rating" id="rating2">
@@ -26,6 +37,7 @@
                                 <label for="rating4" class="fa fa-star"></label>
                                 <input type="radio" value="5" name="product_rating" id="rating5">
                                 <label for="rating5" class="fa fa-star"></label>
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -52,9 +64,9 @@
             </h6>
         </div>
     </div>
-    <div class="container">
-        <div class="card shadow product_data">
-            <div class="card-body">
+    <div class="container pb-5">
+        <div class="product_data">
+            <div class="">
                 <div class="row">
                     <div class="col-md-4 border-right">
                         <img src="{{ asset('storage' . '/' . $products->image) }}" class="w-100" alt="">
@@ -133,20 +145,54 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <hr>
+                        <h3>Description</h3>
+                        <p class="mt-3">
+                            {!! $products->description !!}
+                        </p>
+                    </div>
                     <hr>
-                    <h3>Description</h3>
-                    <p class="mt-3">
-                        {!! $products->description !!}
-                    </p>
-
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Rate this product
-                    </button>
-
                 </div>
-
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Rate this product
+                        </button>
+                        <a href="{{ url('add-review/'.$products->slug.'/userreview') }}" class="btn btn-link">
+                            Write a review
+                        </a>
+                    </div>
+                        <div class="col-md-8">
+                            @foreach ($reviews as $item)
+                                <div class="user-review">
+                                    <label for="">{{ $item->user->name .' '.$item->user->lname }}</label>
+                                    @if ($item->user_id == Auth::id())
+                                        <a href="{{ url('edit-review/'.$products->slug.'/userreview')}}">edit</a>
+                                    @endif
+                                    <br>
+                                    @php
+                                        $rating = App\Models\Rating::where('prod_id', $products->id)->where('user_id', $item->user->id)->first();
+                                    @endphp
+                                    @if ($rating)
+                                        @php
+                                            $user_rated = $rating->stars_rated
+                                        @endphp
+                                        @for ($i =1; $i<= $user_rated; $i++)
+                                        <i class="fa fa-star checked"></i>
+                                        @endfor
+                                        @for($j = $user_rated+1; $j <= 5; $j++)
+                                            <i class="fa fa-star"></i>
+                                        @endfor
+                                    @endif
+                                    <small>Reviewed on {{ $item->created_at->format('d M Y') }}</small>
+                                    <p>
+                                        {{$item->user_review}}
+                                    </p>
+                                </div>
+                            @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>

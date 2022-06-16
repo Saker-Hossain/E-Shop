@@ -1,11 +1,11 @@
-<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg"> 
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
     <div class="logo"><a href="{{ url('/') }}" class="simple-text logo-normal">
             E-Shop
         </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                <a class="nav-link" href="./dashboard.html">
+                <a class="nav-link" href="./dashboard">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>

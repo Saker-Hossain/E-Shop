@@ -29,6 +29,15 @@
     padding: 5px !important;
 }
 
+.search-bar {
+    width: 30%;
+    margin-left: 10%;
+}
+
+.ui-menu {
+    z-index: 3500 !important;
+}
+
 
 /* rating */
 
@@ -63,6 +72,12 @@
 
 .checked {
     color: #ffd900;
+}
+
+.whatsapp-chat {
+    bottom: 10px;
+    left: 10px;
+    position: fixed;
 }
 
 
